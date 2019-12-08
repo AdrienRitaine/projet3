@@ -77,7 +77,7 @@ class Maps
 
 
 			const markerIcon = L.icon({
-				iconUrl: 'images/${imageLink}.png',
+				iconUrl: 'images/'+imageLink+'.png',
 				iconSize:     [38, 48]
 			});
 
