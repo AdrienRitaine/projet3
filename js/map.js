@@ -21,13 +21,13 @@ class Maps
 			localStorage.setItem("prenom", prenom);
 			console.log(localStorage);
 			this.style.display = "none";
-			document.getElementById("signInput").style.display = "block";
+			$("#signInput").css('display', 'block');
 		});
 
 		//Retour signer
 		document.getElementById("retour").addEventListener("click", function(){
-			document.getElementById("formInput").style.display = "block";
-			document.getElementById("signInput").style.display = "none";
+			$("#formInput").css('display', 'block');
+			$("#signInput").css('display', 'none');
 		});
 	}
 
@@ -58,7 +58,8 @@ class Maps
 
 		for (var i = 0; i < this.api.length; i++)
 		{
-			const station = this.api[i];
+			const station = this.api[i]; // On récupére chaque informations de la station.
+
 			var imageLink = "";
 
 			if (station.available_bikes >= 8)
@@ -76,7 +77,7 @@ class Maps
 
 
 			const markerIcon = L.icon({
-				iconUrl: `images/${imageLink}.png`,
+				iconUrl: 'images/${imageLink}.png',
 				iconSize:     [38, 48]
 			});
 
@@ -90,33 +91,36 @@ class Maps
 	}
 
 	// Renvoi les informations de la station lors du clique sur le marker
-	infoStation(station) {
+	infoStation(station)
+	{
 		this.marker.addEventListener('click', () => {
 			this.station = station;
 			console.log(this.station);
-			document.getElementById("form").style.display = "flex";
-			document.getElementById("formPlace").textContent = this.station.bike_stands;
-			document.getElementById("formAddr").textContent = this.station.address;
-			document.getElementById("formDisp").textContent = this.station.available_bikes;
-			document.getElementById("formStation").textContent = this.station.status + " | "  + this.station.name;
-			document.getElementById("formStation").style.fontWeight = "900";
-			document.getElementById("formDisp").style.fontWeight = "900";
+			$('#form').css('display', 'flex')
+			$("#formPlace").text(this.station.bike_stands);
+			$("#formAddr").text(this.station.address);
+			$("#formDisp").text(this.station.available_bikes);
+			$("#formStation").text(this.station.status + " | "  + this.station.name);
+			$("#formStation").css('fontWeight', '900');
+			$("#formDisp").css('fontWeight', '900');
 			localStorage.removeItem("station");
 			localStorage.removeItem("nom");
 			localStorage.removeItem("prenom");
 			localStorage.setItem("Station", this.station.name);
-			if (this.station.available_bikes >= 8){
-				document.getElementById("formDisp").style.color = "#00e640";
-				document.getElementById("formDisp").textContent += " (Beaucoup)";
+			if (this.station.available_bikes >= 8)
+			{
+				$("#formDisp").css('color', '#00e640');
+				$("#formDisp").text(" (Beaucoup)");
 			}
-			else if (this.station.available_bikes >= 5){
-				document.getElementById("formDisp").style.color = "#f9690e";
-				document.getElementById("formDisp").textContent += " (Normal)";
+			else if (this.station.available_bikes >= 5)
+			{
+				$("#formDisp").css('color', '#f9690e');
+				$("#formDisp").text(" (Normal)");
 			}
-			else if (this.station.available_bikes <= 4){
-				document.getElementById("formDisp").style.color = "red";
-				document.getElementById("formDisp").textContent += " (Faible)";
-
+			else if (this.station.available_bikes <= 4)
+			{
+				$("#formDisp").css('color', 'red');
+				$("#formDisp").text(" (Faible)");
 			}
 		});
 	}
