@@ -2,12 +2,12 @@
 
 class Maps
 {
-	constructor(api_key, longLat, station, id)
+	constructor(api_key, longLat, ville, id)
 	{
 		this.longLat = longLat; // Coordonnées de la carte
 		this.api_key = api_key; // Clé pour l'API
 		this.id = id; // id de la map
-		this.station = station; // Station selectionnée
+		this.ville = ville; // Ville selectionnée
 
 		// Lors du clique sur le bouton reserver
 		document.getElementById("formInput").addEventListener("submit", function(e){
@@ -44,7 +44,7 @@ class Maps
 	// Récupération de l'API
 	getAjax()
 	{
-		$.getJSON('https://api.jcdecaux.com/vls/v1/stations?contract=' + this.station + '&apiKey=' + this.api_key)
+		$.getJSON('https://api.jcdecaux.com/vls/v1/stations?contract=' + this.ville + '&apiKey=' + this.api_key)
 			.then((api) => {
 				this.api = api;
 				this.showMarkers();
