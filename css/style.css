@@ -247,7 +247,9 @@ header{
 }
 
 #form{
-	display: none;
+    display: flex;
+    opacity: 0;
+    pointer-events: none;
 	flex-direction: column;
 	position: relative;
 	margin-top: -500px;
@@ -258,7 +260,8 @@ header{
 	background: rgba(255,255,255, 0.9);
 	padding: 20px;
 	border-radius: 5px;
-  line-height: 15px;
+    line-height: 15px;
+    transition: 1s opacity;
 }
 
 #signInput{

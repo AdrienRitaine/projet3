@@ -1,59 +1,81 @@
-// SLIDER //
-class Slider{
-	constructor(){
-		var slidePos = 0;
-		var slide = document.getElementsByClassName("slideImg");
-		document.getElementById("right_arrow").addEventListener("click", sliderDelayRight); // Bouton Droit
-		document.getElementById("left_arrow").addEventListener("click", sliderDelayLeft); // Bouton Gauche
-		document.addEventListener('keydown', function(e){ // Fleche clavier
+class Slider
+{
+
+	constructor(slideElt)
+	{
+		this.slidePos = 0;
+		this.slideElt = slideElt;
+
+	}
+
+	sliderDelayRight()
+	{
+		this.slidePos = this.slidePos - 25;
+		if (this.slidePos < -75)
+		{
+			this.slidePos = 0;
+		}
+		for (var i = 0; i < this.slideElt.length; i++)
+		{
+			this.slideElt[i].style.left = this.slidePos + "%";
+			this.slideElt[i].style.transition = "2s";
+		}
+	}
+
+	sliderDelayLeft()
+	{
+		this.slidePos = this.slidePos + 25;
+		if (this.slidePos > 0)
+		{
+			this.slidePos = -75;
+		}
+		for (var i = 0; i < this.slideElt.length; i++)
+		{
+			this.slideElt[i].style.left = this.slidePos + "%";
+			this.slideElt[i].style.transition = "2s";
+		}
+	}
+
+	launchSlider()
+	{
+		this.delay();
+
+		$('#right_arrow').click((e) => {
+			this.sliderDelayRight();
+		});
+
+		$('#left_arrow').click((e) => {
+			this.sliderDelayLeft();
+		});
+
+		$('#play').click((e) => {
+			$('#play').css('display', 'none');
+			$('#pause').css('display', 'block');
+			this.delay();
+		});
+
+		$('#pause').click((e) => {
+			$('#pause').css('display', 'none');
+			$('#play').css('display', 'block');
+			clearInterval(this.sliderInterval);
+		});
+
+		$('body').on('keydown', function(e){ // Fleche clavier
 			if (e.keyCode === 37) {
-				sliderDelayLeft();
+				slider.sliderDelayLeft();
 			}
 			else if(e.keyCode === 39){
-				sliderDelayRight();
+				slider.sliderDelayRight();
 			}
 		});
-		
-		// Slide vers la gauche
-		function sliderDelayLeft(){
-			slidePos = slidePos + 25;
-			if (slidePos > 0) {
-				slidePos = -75;
-			}
-			for (var i = 0; i < slide.length; i++) {
-				slide[i].style.left = slidePos + "%";
-				slide[i].style.transition = "2s";
-			}	
-		}
-		
-		// Slide vers la droite
-		function sliderDelayRight(){
-			slidePos = slidePos - 25;
-			if (slidePos < -75) {
-				slidePos = 0;
-			}
-			for (var i = 0; i < slide.length; i++) {
-				slide[i].style.left = slidePos + "%";
-				slide[i].style.transition = "2s";
-			}
-		
-		}
-		
-		// Interval de 5s du Slider
-		var timerSlide = setInterval(sliderDelayRight, 5000); // 10s ici
-		
-		// Bouton pause
-		document.getElementById("pause").addEventListener("click", function(){
-			this.style.display = "none";
-			document.getElementById("play").style.display = "block";
-			clearInterval(timerSlide);
-		});
-		
-		// Bouton play
-		document.getElementById("play").addEventListener("click", function(){
-			this.style.display = "none";
-			document.getElementById("pause").style.display = "block";
-			timerSlide = setInterval(sliderDelayRight, 10000); 
-		});		
 	}
+
+	delay()
+	{
+		this.sliderInterval = setInterval((e) => {
+			this.sliderDelayRight();
+		}, 5000);
+	}
+
 }
+

@@ -96,7 +96,8 @@ class Maps
 		this.marker.addEventListener('click', () => {
 			this.station = station;
 			console.log(this.station);
-			$('#form').css('display', 'flex')
+			$('#form').css('pointer-events', 'auto');
+			$('#form').css('opacity', '1');
 			$("#formPlace").text(this.station.bike_stands);
 			$("#formAddr").text(this.station.address);
 			$("#formDisp").text(this.station.available_bikes);
