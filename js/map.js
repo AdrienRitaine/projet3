@@ -100,7 +100,6 @@ class Maps
 			$('#form').css('opacity', '1');
 			$("#formPlace").text(this.station.bike_stands);
 			$("#formAddr").text(this.station.address);
-			$("#formDisp").text(this.station.available_bikes);
 			$("#formStation").text(this.station.status + " | "  + this.station.name);
 			$("#formStation").css('fontWeight', '900');
 			$("#formDisp").css('fontWeight', '900');
@@ -111,17 +110,17 @@ class Maps
 			if (this.station.available_bikes >= 8)
 			{
 				$("#formDisp").css('color', '#00e640');
-				$("#formDisp").text(" (Beaucoup)");
+				$("#formDisp").text(this.station.available_bikes + " (Beaucoup)");
 			}
 			else if (this.station.available_bikes >= 5)
 			{
 				$("#formDisp").css('color', '#f9690e');
-				$("#formDisp").text(" (Normal)");
+				$("#formDisp").text(this.station.available_bikes + " (Normal)");
 			}
 			else if (this.station.available_bikes <= 4)
 			{
 				$("#formDisp").css('color', 'red');
-				$("#formDisp").text(" (Faible)");
+				$("#formDisp").text(this.station.available_bikes + " (Faible)");
 			}
 		});
 	}
