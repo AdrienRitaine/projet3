@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 class Slider
 {
@@ -38,23 +38,23 @@ class Slider
 		this.delay();
 		var keyPause = 0;
 
-		$('#right_arrow').click((e) => {
+		$("#right_arrow").click((e) => {
 			this.sliderDelayRight();
 		});
 
-		$('#left_arrow').click((e) => {
+		$("#left_arrow").click((e) => {
 			this.sliderDelayLeft();
 		});
 
-		$('#play').click((e) => {
+		$("#play").click((e) => {
 			this.keyPlay();
 		});
 
-		$('#pause').click((e) => {
+		$("#pause").click((e) => {
 			this.keyPause();
 		});
 
-		$('body').on('keydown', function(e){ // Fleche clavier
+		$("body").on("keydown", function(e){ // Fleche clavier
 			if (e.keyCode === 37) {
 				slider.sliderDelayLeft();
 			} else if(e.keyCode === 39){
@@ -77,14 +77,14 @@ class Slider
 
 	keyPause()
 	{
-		$('#pause').css('display', 'none');
-		$('#play').css('display', 'block');
+		$("#pause").css("display", "none");
+		$("#play").css("display", "block");
 		clearInterval(this.sliderInterval);
 	}
 
 	keyPlay(){
-		$('#play').css('display', 'none');
-		$('#pause').css('display', 'block');
+		$("#play").css("display", "none");
+		$("#pause").css("display", "block");
 		this.delay();
 	}
 

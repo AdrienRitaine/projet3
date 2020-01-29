@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 // MAP //
 
@@ -18,7 +18,7 @@ class Map
 	addMap()
 	{
 		this.map = L.map(this.id).setView(this.longLat, 14);
-		this.layer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		this.layer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 		}).addTo(this.map);
 	}
@@ -27,7 +27,7 @@ class Map
 	// Récupération de l'API
 	getStations()
 	{
-		$.getJSON('https://api.jcdecaux.com/vls/v1/stations?contract=' + this.ville + '&apiKey=' + this.api_key)
+		$.getJSON("https://api.jcdecaux.com/vls/v1/stations?contract=" + this.ville + "&apiKey=" + this.api_key)
 			.then((api) => {
 				this.api = api;
 				this.showMarkers();
@@ -56,7 +56,7 @@ class Map
 
 
 			const markerIcon = L.icon({
-				iconUrl: 'images/'+imageLink+'.png',
+				iconUrl: "images/"+imageLink+".png",
 				iconSize:     [38, 48]
 			});
 
@@ -113,7 +113,7 @@ class Map
 
 			} else if(this.station.available_bikes <= 4){
 
-				if(localStorage.getItem('reservation') != "valid"){
+				if(localStorage.getItem('reservation') !== "valid"){
 					$("#formInput").css('display', 'block');
 				}
 				$("#formDisp").css('color', 'red');
@@ -134,16 +134,15 @@ class Map
 			localStorage.removeItem("prenom");
 			localStorage.setItem("nom", nom);
 			localStorage.setItem("prenom", prenom);
-			console.log(localStorage);
 			this.style.display = "none";
-			$("#signInput").css('display', 'block');
+			$("#signInput").css("display", "block");
 
 		});
 
 		//Retour signer
 		document.getElementById("retour").addEventListener("click", function(){
-			$("#formInput").css('display', 'block');
-			$("#signInput").css('display', 'none');
+			$("#formInput").css("display", "block");
+			$("#signInput").css("display", "none");
 		});
 	}
 }

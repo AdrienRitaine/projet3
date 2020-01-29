@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 class Canvas
 {
@@ -20,7 +20,7 @@ class Canvas
 	initCanvas()
 	{
 		// Bouton Signer
-		$('#signer').click((e) => {
+		$("#signer"").click((e) => {
 			const blank = this.isCanvasBlank();
 			if (blank === false){
 				sessionStorage.setItem("nomReserv", localStorage.getItem("nom"));
@@ -45,35 +45,35 @@ class Canvas
 		});
 
 		// Bouton effacer
-		$('#effacer').click((e) => {
+		$("#effacer").click((e) => {
 			this.erase(e);
 		});
 
 		// Bouton annuler
-		$('#annulerReserv').click((e) => {
+		$("#annulerReserv"").click((e) => {
 			this.cancelReserv();
 		});
 
 
 		//Evenements PC
-		this.canvas.addEventListener('mousedown', (e) => {
+		this.canvas.addEventListener("mousedown", (e) => {
 			this.startPosition(e);
 		});
-		this.canvas.addEventListener('mouseup', () => {
+		this.canvas.addEventListener("mouseup", () => {
 			this.finishedPosition();
 		});
-		this.canvas.addEventListener('mousemove', (e) => {
+		this.canvas.addEventListener("mousemove", (e) => {
 			this.draw(e);
 		});
 
 		//Evenements Mobile
-		this.canvas.addEventListener('touchstart', (e) => {
+		this.canvas.addEventListener("touchstart", (e) => {
 			this.startPosition(e);
 		});
-		this.canvas.addEventListener('touchend', () => {
+		this.canvas.addEventListener("touchend", () => {
 			this.finishedPosition();
 		});
-		this.canvas.addEventListener('touchmove', (e) => {
+		this.canvas.addEventListener("touchmove", (e) => {
 			this.drawMobile(e);
 		});
 	}
@@ -81,7 +81,7 @@ class Canvas
 	// Canvas vide
 	isCanvasBlank()
 	{
-	const blank = document.createElement('canvas');
+	const blank = document.createElement("canvas");
 
 	blank.width = this.canvas.width;
 	blank.height = this.canvas.height;
@@ -114,7 +114,9 @@ class Canvas
 	// Lors du mouvement de la souris PC
 	draw(e)
 	{
-		if(!this.sign) return;
+		if(!this.sign) {
+			return;
+		}
 		this.ctx.lineWidth = 10;
 		this.ctx.lineCap = 'round';
 		var rect = this.canvas.getBoundingClientRect();
