@@ -1,3 +1,5 @@
+'use strict';
+
 class Canvas
 {
 	constructor(canvasElt, canvasCtx, resaTime)
@@ -13,46 +15,43 @@ class Canvas
 
 		// Decompte
 		this.resaTime = resaTime;
-		this.secondes;
-		this.decompte;
-		this.decompteTimer;
 	}
 
 	initCanvas()
 	{
+		// Bouton Signer
+		$('#signer').click((e) => {
+			const blank = this.isCanvasBlank();
+			if (blank === false){
+				sessionStorage.setItem("nomReserv", localStorage.getItem("nom"));
+				sessionStorage.setItem("prenomReserv", localStorage.getItem("prenom"));
+				sessionStorage.setItem("stationReserv", sessionStorage.getItem("Station"));
+				document.getElementById("reservation").innerHTML = "Vous avez réservé au nom de <b>" +
+					sessionStorage.getItem("nomReserv").toUpperCase() + " " + sessionStorage.getItem("prenomReserv") +
+					" </b>à la station : <b>" + sessionStorage.getItem("stationReserv") + ".</b>";
+				document.getElementById("signInput").style.display = "none";
+				document.getElementById("reservationValid").style.display = "block";
+				document.getElementById("annulerReserv").style.display = "block";
+				sessionStorage.setItem("reservation", "valid");
+				document.getElementById("timer").style.display = "block";
+				sessionStorage.setItem("secondes", 60);
+				sessionStorage.setItem("decompte", this.resaTime * 60);
+				this.decompteMinutes();
+				this.erase(e);
+			}
+			else {
+				alert("Veuillez signer dans la zone indiquée.");
+			}
+		});
+
 		// Bouton effacer
 		$('#effacer').click((e) => {
 			this.erase(e);
 		});
 
-		// Bouton Signer
-		$('#signer').click((e) => {
-			const blank = this.isCanvasBlank();
-			if (blank === false)
-			{
-				localStorage.setItem("nomReserv", localStorage.getItem("nom"));
-				localStorage.setItem("prenomReserv", localStorage.getItem("prenom"));
-				localStorage.setItem("stationReserv", localStorage.getItem("Station"));
-				document.getElementById("reservation").innerHTML = "Vous avez réservé au nom de <b>" +
-					localStorage.getItem("nomReserv").toUpperCase() + " " + localStorage.getItem("prenomReserv") +
-					" </b>à la station : <b>" + localStorage.getItem("stationReserv") + ".</b>";
-				document.getElementById("signInput").style.display = "none";
-				document.getElementById("reservationValid").style.display = "block";
-				document.getElementById("annulerReserv").style.display = "block";
-				localStorage.setItem("reservation", "valid");
-				document.getElementById("timer").style.display = "block";
-				localStorage.setItem("secondes", 60);
-				localStorage.setItem("decompte", this.resaTime * 60);
-				this.decompteMinutes();
-			}
-			else
-				{
-				alert("Veuillez signer dans la zone indiquer.");
-			}
-		});
-
+		// Bouton annuler
 		$('#annulerReserv').click((e) => {
-			this.annulerReservation();
+			this.cancelReserv();
 		});
 
 
@@ -79,7 +78,7 @@ class Canvas
 		});
 	}
 
-
+	// Canvas vide
 	isCanvasBlank()
 	{
 	const blank = document.createElement('canvas');
@@ -90,31 +89,37 @@ class Canvas
 	return this.canvas.toDataURL() === blank.toDataURL();
 	}
 
-	erase(e){
+
+	// Suppression du contenu du canvas
+	erase(e)
+	{
 		this.ctx.clearRect(0, 0, 300 * 5, 200 * 4);
 	}
 
+	// Position de demarrage de la signature
 	startPosition(e)
 	{
 		this.sign = true;
 		this.draw(e);
 	}
 
+
+	// Position de fin de la signature
 	finishedPosition()
 	{
 		this.sign = false;
 		this.ctx.beginPath();
 	}
 
+	// Lors du mouvement de la souris PC
 	draw(e)
 	{
 		if(!this.sign) return;
 		this.ctx.lineWidth = 10;
 		this.ctx.lineCap = 'round';
-		let rect = this.canvas.getBoundingClientRect();
+		var rect = this.canvas.getBoundingClientRect();
 		this.ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
-		if ((e.clientX - rect.left) > 300 || (e.clientX - rect.left) < 10 || (e.clientY - rect.top) > 190 || (e.clientY - rect.top) < 10)
-		{
+		if ((e.clientX - rect.left) > 300 || (e.clientX - rect.left) < 10 || (e.clientY - rect.top) > 190 || (e.clientY - rect.top) < 10){
 			this.finishedPosition();
 		}
 		this.ctx.strokeStyle = "red";
@@ -122,6 +127,7 @@ class Canvas
 		this.ctx.stroke();
 	}
 
+	// Lors du mouvement sur Mobile
 	drawMobile(e)
 	{
 		if(!this.sign) return;
@@ -134,60 +140,67 @@ class Canvas
 		this.ctx.stroke();
 	}
 
-	annulerReservation()
+	cancelReserv()
 	{
-		localStorage.removeItem("reservation");
-		localStorage.setItem("reservation", "annuler");
+		sessionStorage.removeItem("reservation");
+		sessionStorage.setItem("reservation", "annuler");
 		document.getElementById("annulerReserv").style.display = "none";
 		document.getElementById("timer").style.display = "none";
 		this.stopDecompteMinutes();
 		this.validReserv();
 	}
 
+	// Vérification de l'état de réservation
 	validReserv() {
-		if (localStorage.getItem("reservation") === "valid") {
+		if (sessionStorage.getItem("reservation") === "valid") {
+
 			document.getElementById("reservation").innerHTML = "Vous avez réservé au nom de <b>" +
-				localStorage.getItem("nomReserv").toUpperCase() + " " + localStorage.getItem("prenomReserv") +
-				" </b>à la station : <b>" + localStorage.getItem("stationReserv") + ".</b>";
+				sessionStorage.getItem("nomReserv").toUpperCase() + " " + sessionStorage.getItem("prenomReserv") +
+				" </b>à la station : <b>" + sessionStorage.getItem("stationReserv") + ".</b>";
 			document.getElementById("formInput").style.display = "none";
 			document.getElementById("reservationValid").style.display = "block";
 			document.getElementById("annulerReserv").style.display = "block";
 			this.decompteMinutes();
-		} else if (localStorage.getItem("reservation") === false) {
+
+		} else if (sessionStorage.getItem("reservation") === false) {
+
 			document.getElementById("formInput").style.display = "block";
 			document.getElementById("reservationValid").style.display = "none";
 			document.getElementById("annulerReserv").style.display = "none";
 			document.getElementById("reservation").textContent = "Aucune réservation en cours...";
-		} else if (localStorage.getItem("reservation") === "annuler") {
+
+		} else if (sessionStorage.getItem("reservation") === "annuler") {
+
 			document.getElementById("formInput").style.display = "block";
 			document.getElementById("reservationValid").style.display = "none";
 			document.getElementById("annulerReserv").style.display = "none";
-			document.getElementById("reservation").textContent = "Réservation annuler...";
+			document.getElementById("reservation").textContent = "Réservation annulée...";
+
 		}
 	}
 
 	decompteMinutes()
 	{
-		this.secondes = parseInt(localStorage.getItem("secondes"));
-		this.decompte = parseInt(localStorage.getItem("decompte"));
+		this.secondes = parseInt(sessionStorage.getItem("secondes"));
+		this.decompte = parseInt(sessionStorage.getItem("decompte"));
 		this.decompte = this.decompte - 1;
 		this.minutes = Math.floor(this.decompte/60);
 		this.secondes = this.secondes - 1;
 		if(this.secondes < 0){
 			this.secondes = 59;
+		} else if(this.decompte === 0){
+			this.cancelReserv();
 		}
-		if(this.decompte === 0){
-			this.annulerReservation();
-		}
-		localStorage.setItem("secondes", this.secondes);
-		localStorage.setItem("decompte", this.decompte);
+		sessionStorage.setItem("secondes", this.secondes);
+		sessionStorage.setItem("decompte", this.decompte);
 		document.getElementById("timer").innerHTML = "<i style='transform: scale(1.5); margin-right: 10px;' class='far fa-clock'></i> " + this.minutes + " minutes " + this.secondes + " secondes";
 		this.decompteTimer = setTimeout((e) => {
 			this.decompteMinutes();
 		}, 1000);
 	}
 
-	stopDecompteMinutes(){
+	stopDecompteMinutes()
+	{
 		clearTimeout(this.decompteTimer);
 	}
 

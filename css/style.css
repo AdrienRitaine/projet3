@@ -114,6 +114,8 @@ header{
 }
 
 .slideImg{
+  margin: 0;
+  padding: 0;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -224,7 +226,7 @@ header{
   align-items: center;
 }
 
-.sectionTitre p{
+.sectionTitre h1{
   font-family: 'Alfa Slab One', cursive;
   margin-top: -40px;
   color: #2c3e50;
@@ -236,7 +238,8 @@ header{
 .sectionTitre hr{
   margin-bottom: 30px;
   margin-top: 15px;
-  color: #3498db;
+  color: #2c3e50;
+  width: 30%;
 }
 
 #location{
@@ -262,6 +265,10 @@ header{
 	border-radius: 5px;
     line-height: 15px;
     transition: 1s opacity;
+}
+
+fieldset{
+  border: none;
 }
 
 #signInput{
