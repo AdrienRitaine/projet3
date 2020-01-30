@@ -23,19 +23,22 @@ class Canvas
 		$("#signer").click((e) => {
 			const blank = this.isCanvasBlank();
 			if (blank === false){
+
 				sessionStorage.setItem("nomReserv", localStorage.getItem("nom"));
 				sessionStorage.setItem("prenomReserv", localStorage.getItem("prenom"));
 				sessionStorage.setItem("stationReserv", sessionStorage.getItem("Station"));
+				sessionStorage.setItem("secondes", 60);
+				sessionStorage.setItem("decompte", this.resaTime * 60);
+				sessionStorage.setItem("reservation", "valid");
+
 				document.getElementById("reservation").innerHTML = "Vous avez réservé au nom de <b>" +
 					sessionStorage.getItem("nomReserv").toUpperCase() + " " + sessionStorage.getItem("prenomReserv") +
 					" </b>à la station : <b>" + sessionStorage.getItem("stationReserv") + ".</b>";
 				document.getElementById("signInput").style.display = "none";
 				document.getElementById("reservationValid").style.display = "block";
 				document.getElementById("annulerReserv").style.display = "block";
-				sessionStorage.setItem("reservation", "valid");
 				document.getElementById("timer").style.display = "block";
-				sessionStorage.setItem("secondes", 60);
-				sessionStorage.setItem("decompte", this.resaTime * 60);
+
 				this.decompteMinutes();
 				this.erase(e);
 			}
