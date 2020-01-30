@@ -90,7 +90,7 @@ class Map
 
 			if(this.station.available_bikes >= 8){
 
-				if(localStorage.getItem('reservation') != "valid"){
+				if(sessionStorage.getItem('reservation') != "valid"){
 					$("#formInput").css('display', 'block');
 				}
 				$("#formDisp").css('color', '#00e640');
@@ -98,7 +98,7 @@ class Map
 
 			} else if(this.station.available_bikes >= 5){
 
-				if(localStorage.getItem('reservation') != "valid"){
+				if(sessionStorage.getItem('reservation') != "valid"){
 					$("#formInput").css('display', 'block');
 				}
 
@@ -113,7 +113,7 @@ class Map
 
 			} else if(this.station.available_bikes <= 4){
 
-				if(localStorage.getItem('reservation') !== "valid"){
+				if(sessionStorage.getItem('reservation') !== "valid"){
 					$("#formInput").css('display', 'block');
 				}
 				$("#formDisp").css('color', 'red');
