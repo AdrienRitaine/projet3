@@ -54,10 +54,9 @@ class Map
 				imageLink = "marker_icon_red";
 			}
 
-
 			const markerIcon = L.icon({
 				iconUrl: "images/"+imageLink+".png",
-				iconSize:     [38, 48]
+				iconSize: [38, 48]
 			});
 
 			this.marker = L.marker(station.position, {icon: markerIcon});
@@ -83,7 +82,6 @@ class Map
 			$("#formStation").css('fontWeight', '900');
 			$("#formDisp").css('fontWeight', '900');
 
-			localStorage.removeItem("station");
 			localStorage.removeItem("nom");
 			localStorage.removeItem("prenom");
 			sessionStorage.setItem("Station", this.station.name);
