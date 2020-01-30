@@ -20,7 +20,7 @@ class Canvas
 	initCanvas()
 	{
 		// Bouton Signer
-		$("#signer"").click((e) => {
+		$("#signer").click((e) => {
 			const blank = this.isCanvasBlank();
 			if (blank === false){
 				sessionStorage.setItem("nomReserv", localStorage.getItem("nom"));
@@ -50,7 +50,7 @@ class Canvas
 		});
 
 		// Bouton annuler
-		$("#annulerReserv"").click((e) => {
+		$("#annulerReserv").click((e) => {
 			this.cancelReserv();
 		});
 
