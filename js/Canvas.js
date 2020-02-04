@@ -191,11 +191,14 @@ class Canvas
 		this.decompte = this.decompte - 1;
 		this.minutes = Math.floor(this.decompte/60);
 		this.secondes = this.secondes - 1;
+
 		if(this.secondes < 0){
 			this.secondes = 59;
 		} else if(this.decompte === 0){
 			this.cancelReserv();
+			document.location.reload(true);
 		}
+
 		sessionStorage.setItem("secondes", this.secondes);
 		sessionStorage.setItem("decompte", this.decompte);
 		document.getElementById("timer").innerHTML = "<i style='transform: scale(1.5); margin-right: 10px;' class='far fa-clock'></i> " + this.minutes + " minutes " + this.secondes + " secondes";
