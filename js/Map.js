@@ -4,10 +4,10 @@
 
 class Map
 {
-	constructor(api_key, longLat, ville, id)
+	constructor(apiKey, longLat, ville, id)
 	{
 		this.longLat = longLat; // Coordonnées de la carte
-		this.api_key = api_key; // Clé pour l'API
+		this.apiKey = apiKey; // Clé pour l"API
 		this.id = id; // id de la map
 		this.ville = ville; // Ville selectionnée
 
@@ -19,15 +19,15 @@ class Map
 	{
 		this.map = L.map(this.id).setView(this.longLat, 14);
 		this.layer = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-			attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+			attribution: "&copy; <a href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> contributors"
 		}).addTo(this.map);
 	}
 
 
-	// Récupération de l'API
+	// Récupération de l"API
 	getStations()
 	{
-		$.getJSON("https://api.jcdecaux.com/vls/v1/stations?contract=" + this.ville + "&apiKey=" + this.api_key)
+		$.getJSON("https://api.jcdecaux.com/vls/v1/stations?contract=" + this.ville + "&apiKey=" + this.apiKey)
 			.then((api) => {
 				this.api = api;
 				this.showMarkers();
@@ -71,16 +71,16 @@ class Map
 	// Renvoi les informations de la station lors du clique sur le marker
 	infoStation(station)
 	{
-		this.marker.addEventListener('click', () => {
+		this.marker.addEventListener("click", () => {
 			this.station = station;
 
-			$('#form').css('pointer-events', 'auto');
-			$('#form').css('opacity', '1');
+			$("#form").css("pointer-events", "auto");
+			$("#form").css("opacity", "1");
 			$("#formPlace").text(this.station.bike_stands);
 			$("#formAddr").text(this.station.address);
-			$("#formStation").text((this.station.status === "OPEN" ? 'OUVERT' : 'FERMER') + " | "  + this.station.name);
-			$("#formStation").css('fontWeight', '900');
-			$("#formDisp").css('fontWeight', '900');
+			$("#formStation").text((this.station.status === "OPEN" ? "OUVERT" : "FERMER") + " | "  + this.station.name);
+			$("#formStation").css("fontWeight", "900");
+			$("#formDisp").css("fontWeight", "900");
 
 			localStorage.removeItem("nom");
 			localStorage.removeItem("prenom");
@@ -88,33 +88,33 @@ class Map
 
 			if(this.station.available_bikes >= 8){
 
-				if(sessionStorage.getItem('reservation') != "valid"){
-					$("#formInput").css('display', 'block');
+				if(sessionStorage.getItem("reservation") !== "valid"){
+					$("#formInput").css("display", "block");
 				}
-				$("#formDisp").css('color', '#00e640');
+				$("#formDisp").css("color", "#00e640");
 				$("#formDisp").text(this.station.available_bikes + " (Beaucoup)");
 
 			} else if(this.station.available_bikes >= 5){
 
-				if(sessionStorage.getItem('reservation') != "valid"){
-					$("#formInput").css('display', 'block');
+				if(sessionStorage.getItem("reservation") !== "valid"){
+					$("#formInput").css("display", "block");
 				}
 
-				$("#formDisp").css('color', '#f9690e');
+				$("#formDisp").css("color", "#f9690e");
 				$("#formDisp").text(this.station.available_bikes + " (Normal)");
 
 			} else if(this.station.available_bikes <= 0 || this.station.status === "CLOSED"){
 
-				$("#formInput").css('display', 'none');
-				$("#formDisp").css('color', 'red');
+				$("#formInput").css("display", "none");
+				$("#formDisp").css("color", "red");
 				$("#formDisp").text(this.station.available_bikes);
 
 			} else if(this.station.available_bikes <= 4){
 
-				if(sessionStorage.getItem('reservation') !== "valid"){
-					$("#formInput").css('display', 'block');
+				if(sessionStorage.getItem("reservation") !== "valid"){
+					$("#formInput").css("display", "block");
 				}
-				$("#formDisp").css('color', 'red');
+				$("#formDisp").css("color", "red");
 				$("#formDisp").text(this.station.available_bikes + " (Faible)");
 
 			}

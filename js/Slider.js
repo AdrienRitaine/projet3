@@ -63,7 +63,7 @@ class Slider
 				e.preventDefault();
 				switch (keyPause) {
 					case 0:
-						slider.keyPause()
+						slider.keyPause();
 						keyPause++;
 						break;
 					case 1:

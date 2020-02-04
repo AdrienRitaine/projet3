@@ -24,77 +24,56 @@
 
 	<!-- CSS -->
 	<link rel="stylesheet" type="text/css" href="css/style.css">
-
 </head>
 <body>
 	<!-- HEADER | ACCUEIL -->
 	<header id="accueil">
 		<nav id="nav">
-
-			<!-- MENU -->
 			<img class="logoimg" src="images/logo.png" alt="logo">
-			<div id="menu">
-				<a href="#accueil">
-					<p>Accueil</p>
-				</a>
-				<a href="#map">
-					<p>Carte</p>
-				</a>
-				<a href="#locationInfo">
-					<p>Réservations</p>
-				</a>
-			</div>
 		</nav>
-		<div id="head">
-			<img src="images/head.jpg" alt="paysage">	
-		</div>
+		<figure id="head">
+			<img src="images/head.jpg" alt="paysage">
+		</figure>
 	</header>
 
 	<main id="body">
 			<!-- SLIDER -->
-		<aside id="sliderContainer">
+		<section id="sliderContainer">
+			<h2>Location de vélo !</h2>
 			<div id="slider">
 				<div class="containerSlider">
-					<div class="slide">
-						<figure class="slideImg">
-							<img src="images/slider/1.jpg" alt="slider"> <!-- IMAGE -->
-							<figcaption class="slideImgDesc">
-								<p class="descTitle"><span style="color: #2980b9;">Tutoriel </span>d'utilisation</p>
-								<p class="descUnderTitle">Etape 1 : </p>
-								<p>Clique sur la station pour laquelle tu veut réserver un vélo.</p>
-							</figcaption>
-						</figure>
-					</div>
-					<div class="slide">
-						<figure class="slideImg">
-							<img src="images/slider/2.jpg" alt="slider"> <!-- IMAGE -->
-							<figcaption class="slideImgDesc">
-								<p class="descTitle"><span style="color: #2980b9;">Tutoriel </span>d'utilisation</p>
-								<p class="descUnderTitle">Etape 2 : </p>
-								<p>Remplis tes informations et clique sur le bouton <b>RESERVER</b>.</p>
-							</figcaption>
-						</figure>
-					</div>
-					<div class="slide">
-						<figure class="slideImg">
-							<img src="images/slider/3.jpg" alt="slider"> <!-- IMAGE -->
-							<figcaption class="slideImgDesc">
-								<p class="descTitle"><span style="color: #2980b9;">Tutoriel </span>d'utilisation</p>
-								<p class="descUnderTitle">Etape 3 : </p>
-								<p>Signe dans le rectangle et clique sur le bouton <b>SIGNER</b>.</p>
-							</figcaption>
-						</figure>
-					</div>
-					<div class="slide">
-						<figure class="slideImg">
-							<img src="images/slider/4.jpg" alt="slider"> <!-- IMAGE -->
-							<figcaption class="slideImgDesc">
-								<p class="descTitle"><span style="color: #2980b9;">Tutoriel </span>d'utilisation</p>
-								<p class="descUnderTitle">Etape 4 (facultative) : </p>
-								<p>Pour annuler une réservation, rien de plus simple clique sur le bouton dans la barre de réservation ! :)</p>
-							</figcaption>
-						</figure>
-					</div>
+					<figure class="slideImg">
+						<img src="images/slider/1.jpg" alt="slider"> <!-- IMAGE -->
+						<figcaption class="slideImgDesc">
+							<p class="descTitle"><span style="color: #2980b9;">Tutoriel </span>d'utilisation</p>
+							<p class="descUnderTitle">Etape 1 : </p>
+							<p>Clique sur la station pour laquelle tu veut réserver un vélo.</p>
+						</figcaption>
+					</figure>
+					<figure class="slideImg">
+						<img src="images/slider/2.jpg" alt="slider"> <!-- IMAGE -->
+						<figcaption class="slideImgDesc">
+							<p class="descTitle"><span style="color: #2980b9;">Tutoriel </span>d'utilisation</p>
+							<p class="descUnderTitle">Etape 2 : </p>
+							<p>Remplis tes informations et clique sur le bouton <b>RESERVER</b>.</p>
+						</figcaption>
+					</figure>
+					<figure class="slideImg">
+						<img src="images/slider/3.jpg" alt="slider"> <!-- IMAGE -->
+						<figcaption class="slideImgDesc">
+							<p class="descTitle"><span style="color: #2980b9;">Tutoriel </span>d'utilisation</p>
+							<p class="descUnderTitle">Etape 3 : </p>
+							<p>Signe dans le rectangle et clique sur le bouton <b>SIGNER</b>.</p>
+						</figcaption>
+					</figure>
+					<figure class="slideImg">
+						<img src="images/slider/4.jpg" alt="slider"> <!-- IMAGE -->
+						<figcaption class="slideImgDesc">
+							<p class="descTitle"><span style="color: #2980b9;">Tutoriel </span>d"utilisation</p>
+							<p class="descUnderTitle">Etape 4 (facultative) : </p>
+							<p>Pour annuler une réservation, rien de plus simple clique sur le bouton dans la barre de réservation ! :)</p>
+						</figcaption>
+					</figure>
 				</div>			
 			</div>
 
@@ -110,22 +89,19 @@
 					<i id="play" class="fas fa-play-circle"></i>
 				</span>
 			</div>
-		</aside>
+		</section>
 
 			<!-- MAP & RESERVATION -->
 		<section id="location">
-			<div class="sectionTitre">
-				<h1>La carte</h1>
-				<hr>
-			</div>
+			<h2 class="sectionTitre">La carte</h2>
 
 			<!-- AFFICHAGE MAP -->
 			<div id="map">
 			</div>
 
 			<!-- FORMULAIRE DE RESERVATION -->
-			<div id="form">
-				<p><i class="fas fa-map-pin"></i> <span id="formStation"></span></p>
+			<section id="form">
+				<h3><i class="fas fa-map-pin"></i> <span id="formStation"></span></h3>
 				<form id="formInput">
 			        <fieldset class="input-field col s12">
 			          <input type="text" id="nom" class="autocomplete" required>
@@ -158,15 +134,15 @@
 					<p><i class="fas fa-parking"></i> <b>Nombre de places : </b><span id="formPlace"></span></p>
 					<p><i class="fas fa-bicycle"></i> <b>Vélos disponibles : </b><span id="formDisp"></span></p>
 				</div>
-			</div>
+			</section>
 
 			<!-- DETAILS RESERVATION -->
-			<div id="locationInfo">
-				<p><b>Détail de votre réservation :</b></p>
+			<section id="locationInfo">
+				<h3>Détail de votre réservation :</h3>
 				<p id="reservation">Aucune réservation en cours...</p>
 				<p id="timer"></p>
 				<button id="annulerReserv" class="btn">Annuler</button>
-			</div>
+			</section>
 		</section>
 	</main>
 

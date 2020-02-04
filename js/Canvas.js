@@ -11,10 +11,14 @@ class Canvas
 		// Hauteur du canvas
 		this.canvas.width = 310;
 		this.canvas.height = 200;
+
 		this.validReserv();
 
-		// Decompte
+		// count
 		this.resaTime = resaTime;
+
+		document.getElementById("nom").value = localStorage.getItem("nom");
+		document.getElementById("prenom").value = localStorage.getItem("prenom");
 	}
 
 	initCanvas()
@@ -28,7 +32,7 @@ class Canvas
 				sessionStorage.setItem("prenomReserv", localStorage.getItem("prenom"));
 				sessionStorage.setItem("stationReserv", sessionStorage.getItem("Station"));
 				sessionStorage.setItem("secondes", 60);
-				sessionStorage.setItem("decompte", this.resaTime * 60);
+				sessionStorage.setItem("count", this.resaTime * 60);
 				sessionStorage.setItem("reservation", "valid");
 
 				document.getElementById("reservation").innerHTML = "Vous avez réservé au nom de <b>" +
@@ -39,7 +43,7 @@ class Canvas
 				document.getElementById("annulerReserv").style.display = "block";
 				document.getElementById("timer").style.display = "block";
 
-				this.decompteMinutes();
+				this.countMinutes();
 				this.erase(e);
 			}
 			else {
@@ -121,7 +125,7 @@ class Canvas
 			return;
 		}
 		this.ctx.lineWidth = 10;
-		this.ctx.lineCap = 'round';
+		this.ctx.lineCap = "round";
 		var rect = this.canvas.getBoundingClientRect();
 		this.ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
 		if ((e.clientX - rect.left) > 300 || (e.clientX - rect.left) < 10 || (e.clientY - rect.top) > 190 || (e.clientY - rect.top) < 10){
@@ -135,9 +139,11 @@ class Canvas
 	// Lors du mouvement sur Mobile
 	drawMobile(e)
 	{
-		if(!this.sign) return;
+		if(!this.sign) {
+			return;
+		}
 		this.ctx.lineWidth = 10;
-		this.ctx.lineCap = 'round';
+		this.ctx.lineCap = "round";
 		let rect = this.canvas.getBoundingClientRect();
 		this.ctx.lineTo(e.touches[0].clientX - rect.left, e.touches[0].clientY - rect.top);
 		this.ctx.strokeStyle = "red";
@@ -151,11 +157,11 @@ class Canvas
 		sessionStorage.setItem("reservation", "annuler");
 		document.getElementById("annulerReserv").style.display = "none";
 		document.getElementById("timer").style.display = "none";
-		this.stopDecompteMinutes();
+		this.stopCountMinutes();
 		this.validReserv();
 	}
 
-	// Vérification de l'état de réservation
+	// Vérification de l"état de réservation
 	validReserv() {
 		if (sessionStorage.getItem("reservation") === "valid") {
 
@@ -165,7 +171,7 @@ class Canvas
 			document.getElementById("formInput").style.display = "none";
 			document.getElementById("reservationValid").style.display = "block";
 			document.getElementById("annulerReserv").style.display = "block";
-			this.decompteMinutes();
+			this.countMinutes();
 
 		} else if (sessionStorage.getItem("reservation") === false) {
 
@@ -184,32 +190,32 @@ class Canvas
 		}
 	}
 
-	decompteMinutes()
+	countMinutes()
 	{
 		this.secondes = parseInt(sessionStorage.getItem("secondes"));
-		this.decompte = parseInt(sessionStorage.getItem("decompte"));
-		this.decompte = this.decompte - 1;
-		this.minutes = Math.floor(this.decompte/60);
+		this.count = parseInt(sessionStorage.getItem("count"));
+		this.count = this.count - 1;
+		this.minutes = Math.floor(this.count/60);
 		this.secondes = this.secondes - 1;
 
 		if(this.secondes < 0){
 			this.secondes = 59;
-		} else if(this.decompte === 0){
+		} else if(this.count === 0){
 			this.cancelReserv();
 			document.location.reload(true);
 		}
 
 		sessionStorage.setItem("secondes", this.secondes);
-		sessionStorage.setItem("decompte", this.decompte);
+		sessionStorage.setItem("count", this.count);
 		document.getElementById("timer").innerHTML = "<i style='transform: scale(1.5); margin-right: 10px;' class='far fa-clock'></i> " + this.minutes + " minutes " + this.secondes + " secondes";
-		this.decompteTimer = setTimeout((e) => {
-			this.decompteMinutes();
+		this.countTimer = setTimeout((e) => {
+			this.countMinutes();
 		}, 1000);
 	}
 
-	stopDecompteMinutes()
+	stopCountMinutes()
 	{
-		clearTimeout(this.decompteTimer);
+		clearTimeout(this.countTimer);
 	}
 
 }
